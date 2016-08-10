@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="vstda">
+<head>
+  <meta charset="UTF-8">
+  <title>Very Simple Todo App</title>
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<!-- endbower -->
+
+<!-- inject:css -->
+
+<link rel="stylesheet" href="css/style.css">
+
+<!-- endinject -->
+</head>
+<body ng-controller="vstdaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+				<form class="well">
+					<div class="form-group">
+						<label>Add Todo Item</label>
+					</div>
+					<div class="form-group">
+						<label>Text</label>
+						<input type="text" ng-model="todoItem.description">
+					</div>
+					<div class="form-group">
+						<label>Priority</label>
+						<select ng-model="todoItem.priority">
+							<option value="high">High Priority</option>
+							<option value="medium">Medium Priority</option>
+							<option value="low">Low Priority</option>
+						</select>
+					</div>
+					<button class="btn btn-primary" ng-click="btnAddTodo()">Add Todo</button>
+				</form>
+			</div>
+
+			<div class="col-xs-12 col-sm-8">
+				<div class="row">
+					<button class="btn btn-primary btn-xs"
+									ng-click="propertyOrder = 'order'; reverse = false;">
+									Order by highest priority</button>
+					<button class="btn btn-primary btn-xs"
+									ng-click="propertyOrder = 'order'; reverse = true;">
+									Order by lowest priority</button>
+					<button class="btn btn-primary btn-xs"
+									ng-click="propertyOrder = 'description'; reverse = !reverse;">
+									Order alphabetically</button>
+				</div>
+				<div>
+					<p ng-class="todoItem.priority">{{todoItem}} {{reverse}}</p>
+					<p ng-repeat="item in todoList | orderBy:propertyOrder:reverse"
+						 ng-class="{high: item.priority === 'high',
+												medium: item.priority === 'medium',
+												low: item.priority === 'low'}">
+						{{item.description}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+
+
+
+
+
+
+
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endbower -->
+<!-- inject:js -->
+
+<script src="js/index.js"></script>
+
+<!-- endinject -->
+</body>
+</html>

@@ -1,11 +1,20 @@
 .high {
-	background-color: #ffcccc
+	background-color: #ffcccc;
+	padding: 8px;
+	margin: 1px;
+	border-radius: 6px;
 }
 
 .medium {
-	background-color: #ffffcc
+	background-color: #ffffcc;
+	padding: 8px;
+	margin: 1px;
+	border-radius: 6px;
 }
 
 .low {
-	background-color: #99ccff
+	background-color: #99ccff;
+	padding: 8px;
+	margin: 1px;
+	border-radius: 6px;
 }

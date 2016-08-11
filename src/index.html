@@ -5,6 +5,7 @@
   <title>Very Simple Todo App</title>
 <!-- bower:css -->
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
 <!-- endbower -->
 
 <!-- inject:css -->
@@ -23,11 +24,11 @@
 					</div>
 					<div class="form-group">
 						<label>Text</label>
-						<input type="text" ng-model="todoItem.description">
+						<input type="text" ng-model="todoItem.description" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Priority</label>
-						<select ng-model="todoItem.priority">
+						<select ng-model="todoItem.priority" class="form-control">
 							<option value="high">High Priority</option>
 							<option value="medium">Medium Priority</option>
 							<option value="low">Low Priority</option>
@@ -39,40 +40,46 @@
 
 			<div class="col-xs-12 col-sm-8">
 				<div class="row">
-					<button class="btn btn-primary btn-xs"
-									ng-click="propertyOrder = 'order'; reverse = false;">
-									Order by highest priority</button>
-					<button class="btn btn-primary btn-xs"
-									ng-click="propertyOrder = 'order'; reverse = true;">
-									Order by lowest priority</button>
-					<button class="btn btn-primary btn-xs"
-									ng-click="propertyOrder = 'description'; reverse = !reverse;">
-									Order alphabetically</button>
+					<div class="col-sm-offset-1">
+						<button class="btn btn-primary btn-xs"
+										ng-click="propertyOrder = 'order'; reverse = false;">
+										Order by highest priority</button>
+						<button class="btn btn-primary btn-xs"
+										ng-click="propertyOrder = 'order'; reverse = true;">
+										Order by lowest priority</button>
+						<button class="btn btn-primary btn-xs"
+										ng-click="propertyOrder = 'description'; reverse = !reverse;">
+										Order alphabetically</button>
+						<button class="btn btn-warning btn-xs"
+										ng-click="propertyOrder = null; reverse = false;">
+										Unsort</button>
+					</div>
 				</div>
-				<div>
-					<p ng-class="todoItem.priority">{{todoItem}} {{reverse}}</p>
-					<p ng-repeat="item in todoList | orderBy:propertyOrder:reverse"
-						 ng-class="{high: item.priority === 'high',
-												medium: item.priority === 'medium',
-												low: item.priority === 'low'}">
-						{{item.description}}</p>
+				<div class="row">
+					<p ng-class="todoItem.priority">{{todoItem.description}}</p>
+					
+					<ul data-as-sortable="board.dragControlListeners" data-ng-model="todoList">
+						<li data-ng-repeat="item in todoList | orderBy:propertyOrder:reverse"
+							  ng-class="{high: item.priority === 'high',
+										medium: item.priority === 'medium',
+										low: item.priority === 'low'}"
+							  data-as-sortable-item>
+							<div data-as-sortable-item-handle>
+								<button class="btn btn-danger btn-xs"
+											ng-click="delete($index)">Remove item</button>
+											{{item.description}}
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-
-			
-
-
-
-
-
-
-
 <!-- bower:js -->
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
 <!-- endbower -->
 <!-- inject:js -->
 

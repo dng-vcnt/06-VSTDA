@@ -11,14 +11,19 @@
     function vstdaFactory($http, $q) {
         var service = {
             addTodo: addTodo,
-            getTodo: getTodo
+            deleteTodo: deleteTodo,
+            getTodo: getTodo,
+            updateTodo: updateTodo
         };
+        var url = "http://localhost:51662/api/Todoes";
         return service;
 
         ////////////////
-        function addTodo(todo) {
+
+        // Add item to to-do list
+        function addTodo(task) {
             var defer = $q.defer();
-            $http.post("http://localhost:51662/api/Todoes", todo).then(
+            $http.post(url, task).then(
                 function(response) {
                     defer.resolve(response.data);
                 },
@@ -29,9 +34,10 @@
             return defer.promise;
         }
 
-        function getTodo() {
+        // Delete item from to-do list
+        function deleteTodo(task) {
             var defer = $q.defer();
-            $http.get("http://localhost:51662/api/Todoes").then(
+            $http.delete(url + "/" + task.id).then(
                 function(response) {
                     defer.resolve(response.data);
                 },
@@ -40,16 +46,34 @@
                 }
             );
             return defer.promise;
+        }
 
-            // Initialization
-            // var todoList = [
-            //     { "description": "Clean car", "priority": "medium", "order": 2 },
-            //     { "description": "Clean self", "priority": "high", "order": 1 },
-            //     { "description": "Clean poop", "priority": "low", "order": 3 },
-            //     { "description": "Program", "priority": "low", "order": 3 },
-            //     { "description": "Watch cartoons", "priority": "high", "order": 1 }
-            // ];
-            // return todoList;
+        // Retrieve to-do list
+        function getTodo() {
+            var defer = $q.defer();
+            $http.get(url).then(
+                function(response) {
+                    defer.resolve(response.data);
+                },
+                function(error) {
+                    defer.reject(error);
+                }
+            );
+            return defer.promise;
+        }
+
+        // Update task in todo list
+        function updateTodo(task) {
+            var defer = $q.defer();
+            $http.put(url + "/" + task.id, task).then(
+                function(response) {
+                    defer.resolve(response);
+                },
+                function(error){
+                    defer.reject(error);
+                }
+            );
+            return defer.promise;
         }
 
     }

@@ -17,6 +17,7 @@
 <body ng-controller="vstdaController as ctrl">
 	<div class="container">
 		<div class="row">
+			<!-- Add Task Form Start -->
 			<div class="col-xs-12 col-sm-3 col-sm-offset-1">
 				<form class="well">
 					<div class="form-group">
@@ -35,10 +36,11 @@
 						</select>
 					</div>
 					<button class="btn btn-primary" 
-						ng-click="ctrl.addTodo()">Add Todo</button>
+						ng-click="ctrl.addTodo(ctrl.todoItem)">Add Todo</button>
 				</form>
 			</div>
-
+			<!-- Add Task From End -->
+			<!-- Order Buttons Start -->
 			<div class="col-xs-12 col-sm-8">
 				<div class="row">
 					<div class="col-sm-offset-1">
@@ -56,6 +58,8 @@
 										Unsort</button>
 					</div>
 				</div>
+				<!-- Order Buttons End -->
+				<!-- Display List Start -->
 				<div class="row">
 					<div class="col-xs-12">
 						<ul data-as-sortable="board.dragControlListeners" data-ng-model="ctrl.todoList">
@@ -64,15 +68,33 @@
 											medium: item.priority === 'medium',
 											low: item.priority === 'low'}"
 								  data-as-sortable-item>
-								<div data-as-sortable-item-handle>
-									<button class="btn btn-danger btn-xs"
-												ng-click="ctrl.deleteItem($index)">Remove item</button>
-												{{item.description}}
+								<div data-as-sortable-item-handle  
+									ng-dblclick="ctrl.isEdit=!ctrl.isEdit">
+									<!-- Visible Display Section -->
+									<span ng-hide="ctrl.isEdit">
+										<button class="btn btn-danger btn-xs" 
+											ng-click="ctrl.deleteTodo(item)">
+											Remove
+										</button>
+										{{item.description}}
+									</span>
+									<!-- Visible Display Section End -->
+									<!-- Hidden Edit Section -->
+									<span ng-show="ctrl.isEdit">
+										<button class="btn btn-success btn-xs"
+											ng-click="ctrl.updateTodo(item); ctrl.isEdit=!ctrl.isEdit">
+											Save
+										</button>
+										<input type="text"  
+											ng-model="item.description">
+									</span>
+									<!-- Hidden Edit Section End -->
 								</div>
 							</li>
 						</ul>
 					</div>
 				</div>
+				<!-- Display List End -->
 			</div>
 		</div>
 	</div>

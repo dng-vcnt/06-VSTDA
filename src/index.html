@@ -19,7 +19,7 @@
 		<div class="row">
 			<!-- Add Task Form Start -->
 			<div class="col-xs-12 col-sm-3 col-sm-offset-1">
-				<form class="well">
+				<form class="well" ng-submit="ctrl.addTodo(ctrl.todoItem); ctrl.todoItem={}">
 					<div class="form-group">
 						<label>Add Todo Item</label>
 					</div>
@@ -35,8 +35,7 @@
 							<option value="low">Low Priority</option>
 						</select>
 					</div>
-					<button class="btn btn-primary" 
-						ng-click="ctrl.addTodo(ctrl.todoItem)">Add Todo</button>
+					<button class="btn btn-primary" type="submit">Add Todo</button>
 				</form>
 			</div>
 			<!-- Add Task From End -->

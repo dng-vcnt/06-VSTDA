@@ -25,6 +25,7 @@
             var defer = $q.defer();
             $http.post(url, task).then(
                 function(response) {
+                    console.log(response.data);
                     defer.resolve(response.data);
                 },
                 function(error) {

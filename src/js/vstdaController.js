@@ -48,9 +48,9 @@
         function addTodo(task) {
             task.order = setOrder(task);
             vstdaFactory.addTodo(task).then(
-                function() {
+                function(response) {
                     // Pushing to list causes display bug
-                    // vm.todoList.push(task);
+                    vm.todoList.push(response);
                     console.log("Successfully added");
                 },
                 function() {
